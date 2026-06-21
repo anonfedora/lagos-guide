@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Space+Mono:wght@700&family=Mukta:wght@800&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{ --bg:#f2e6d0; --ink:#33281b; --ink2:#6a5840; --terra:#c5612e; --ochre:#ce922a; --landmark:#5a4530; }
+  *{ margin:0; box-sizing:border-box; }
+  body{ background:#ccc; }
+  .card{ width:1200px; height:630px; background:var(--bg); position:relative; overflow:hidden;
+         font-family:"Inter",system-ui,sans-serif; padding:58px 70px; }
+  .sun{ position:absolute; top:-210px; right:-190px; width:600px; height:600px; opacity:.2; border-radius:50%;
+        background:repeating-conic-gradient(var(--ochre) 0 0.9deg, transparent 0.9deg 9deg);
+        -webkit-mask:radial-gradient(circle, transparent 26%, #000 29%, #000 49%, transparent 52%);
+                mask:radial-gradient(circle, transparent 26%, #000 29%, #000 49%, transparent 52%); }
+  .ring{ position:absolute; width:70px; height:70px; border:4px solid var(--terra); border-radius:50%; right:330px; top:104px; opacity:.5; }
+  .dia{ position:absolute; width:38px; height:38px; border:4px solid var(--ochre); right:226px; top:250px; transform:rotate(45deg); opacity:.5; }
+  .kicker{ font-family:"Space Mono",monospace; font-size:18px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink2); display:flex; gap:14px; align-items:center; }
+  .kdot{ width:7px; height:7px; border-radius:50%; background:var(--ochre); }
+  .title{ position:relative; display:inline-block; margin-top:34px; }
+  .echo{ position:absolute; left:0; top:0; transform-origin:left top; transform:translate(.16em,.3em) skewX(-20deg) scaleY(1.08);
+         font-family:"Mukta",sans-serif; font-weight:800; color:var(--terra); opacity:.16; line-height:1; white-space:nowrap; font-size:188px; }
+  .latin{ position:relative; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:188px; letter-spacing:-.045em; color:var(--ink); line-height:.9; }
+  .sub{ margin-top:30px; font-size:35px; font-weight:500; color:var(--ink2); font-family:"Space Grotesk",sans-serif; letter-spacing:-.01em; }
+  .sub b{ color:var(--terra); font-weight:700; }
+  .a11y{ display:inline-block; margin-top:20px; font-family:"Space Mono",monospace; font-size:15px; color:var(--terra); border:1.6px solid var(--terra); padding:8px 15px; border-radius:999px; text-transform:uppercase; letter-spacing:.05em; }
+  .sea{ position:absolute; left:0; bottom:0; width:1200px; opacity:.12; color:var(--landmark); }
+  .foot{ position:absolute; left:70px; bottom:54px; font-family:"Space Mono",monospace; font-size:18px; letter-spacing:.04em; text-transform:uppercase; color:var(--ink2); }
+  .brand{ position:absolute; right:70px; bottom:46px; color:var(--ink); }
+  .brand .devcon-logo{ width:194px; height:auto; display:block; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="sun"></div>
+    <div class="ring"></div>
+    <div class="dia"></div>
+    <div class="kicker"><span class="kdot"></span>Ethereum Foundation<span class="kdot"></span>Nov 3 to 6, 2026<span class="kdot"></span>Mumbai, India</div>
+    <div class="title"><span class="echo">मुंबई</span><span class="latin">Mumbai.</span></div>
+    <div class="sub">The unofficial <b>Devcon&nbsp;8</b> attendee field guide</div>
+    <div class="a11y">Read-aloud + high-contrast ready</div>
+
+    <svg class="sea" viewBox="0 0 1200 170" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="0" y1="128" x2="1200" y2="128"/><line x1="0" y1="134" x2="1200" y2="134"/>
+      <path d="M400 128 L405 26 L411 128"/>
+      <line x1="405" y1="36" x2="270" y2="128"/><line x1="405" y1="36" x2="330" y2="128"/><line x1="405" y1="36" x2="470" y2="128"/><line x1="405" y1="36" x2="540" y2="128"/>
+      <path d="M800 128 L805 26 L811 128"/>
+      <line x1="805" y1="36" x2="670" y2="128"/><line x1="805" y1="36" x2="730" y2="128"/><line x1="805" y1="36" x2="870" y2="128"/><line x1="805" y1="36" x2="940" y2="128"/>
+    </svg>
+
+    <div class="foot">Jio World Convention Centre, BKC</div>
+    <div class="brand">
+      <svg class="devcon-logo" viewBox="0 0 149 64" fill="currentColor" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Devcon">
+        <path d="M7.029 44.634 4.504 50.51h-1.98L0 44.634h2.167l1.424 3.434 1.459-3.434h1.979ZM8.59 44.633h2.013v5.878H8.59v-5.878ZM12.941 44.633h2.013v5.878h-2.013v-5.878ZM17.291 44.633h2.013v5.878h-2.013v-5.878ZM6.151 25.36H0v.39c1.025 0 1.748 1.353 1.748 2.775v9.84c0 1.56-.746 2.753-1.748 2.753v.39h6.151c4.637 0 9.763-1.308 9.763-8.005 0-6.698-5.126-8.143-9.763-8.143ZM2.634 40.532l1.158-1.975 1.16 1.975H2.633Zm1.158-12.22-1.158-1.977H4.95l-1.159 1.976Zm3.382 12.806H6.149V25.75h1.025c2.283 0 3.64.596 3.64 7.753 0 7.156-1.357 7.615-3.64 7.615Zm5.16-7.684 2.007-1.14v2.28l-2.007-1.14ZM44.653 25.36v.39c4.459 0 2.747 5.367 2.747 5.367l-1.937 4.776-3.052-7.482s-.886-2.661 1.025-2.661v-.39h-8.432v.39c.606 0 1.445.023 2.213 1.858 0 0 .257.39 5.965 13.9h.396l4.195-10.276c2.353-5.482 3.425-5.482 4.496-5.482v-.39h-7.616Zm-4.957 2.951-1.158-1.976h2.317l-1.159 1.976ZM32.019 36.508c-.979 4.61-6.13 4.61-6.13 4.61h-.84v-7.57h.84s3.54 0 3.774 2.386h.396v-5.16h-.396c-.233 2.385-3.775 2.385-3.775 2.385h-.839V25.75h.84s5.291 0 5.827 3.968h.396V25.36H19.297v.39c1.025 0 1.351 1.353 1.351 2.775v9.84c0 1.56-.372 2.753-1.351 2.753v.39h13.118v-5h-.396Zm-10.484 4.024 1.158-1.975 1.16 1.975h-2.319Zm1.158-12.22-1.159-1.977h2.318l-1.159 1.976ZM115.703 44.63h2.016v5.886h-2.016v-5.885ZM126.296 44.63v5.886h-1.657l-2.272-2.673v2.673h-1.965v-5.885h1.657l2.273 2.673v-2.673h1.964ZM128.979 44.63h2.946c1.999 0 3.374 1.119 3.374 2.944 0 1.824-1.375 2.943-3.374 2.943h-2.946V44.63Zm2.861 4.34c.846 0 1.426-.497 1.426-1.396 0-.9-.58-1.396-1.426-1.396h-.846v2.791h.846ZM137.742 44.63h2.016v5.886h-2.016v-5.885ZM146.515 49.49h-2.272l-.402 1.026h-2.05l2.614-5.885h1.982L149 50.517h-2.084l-.401-1.026Zm-.556-1.429-.58-1.48-.581 1.48h1.161ZM111.599 36.691c-.606 2.5-2.516 4.633-5.313 4.633-2.106 0-2.868-1.582-2.868-7.89s.762-7.89 2.868-7.89c2.657 0 4.008 1.514 5.313 4.61h.396l.326-3.601c-1.468-1.17-3.635-1.4-6.035-1.4-4.986 0-8.085 3.717-8.085 8.281 0 4.565 3.099 8.28 8.085 8.28 2.494 0 4.311-.298 6.035-1.422l-.326-3.6h-.396Zm-11.704-2.116v-2.282l2.007 1.141-2.007 1.14ZM122.271 25.154c-5.126 0-8.039 3.853-8.039 8.395 0 4.564 2.913 8.165 8.039 8.165 5.126 0 8.039-3.601 8.039-8.165 0-4.542-2.913-8.395-8.039-8.395Zm-6.273 9.42v-2.28l2.007 1.14-2.007 1.14Zm6.273 6.75c-2.773 0-3.032-1.468-3.032-7.775 0-6.308.259-8.005 3.032-8.005 2.75 0 2.985 1.72 2.985 8.005 0 6.284-.236 7.775-2.985 7.775Zm4.594-7.89 2.008-1.14v2.28l-2.008-1.14Z" />
+        <path d="M141.94 25.36v.39c3.215-.023 3.192 5.436 3.192 5.436v4.332l-8.368-10.158h-6.731v.39c.606.046 1.282-.207 2.773 1.628l.909 1.124v7.157s.023 5.459-3.495 5.459v.39h7.083v-.39c-3.215 0-3.192-5.46-3.192-5.46v-6.743l10.182 12.593h1.235V31.186s-.047-5.46 3.472-5.436v-.39h-7.06Zm-6.67 2.951-1.159-1.976h2.317l-1.158 1.976ZM76.65 26.847c.031-.17.217-1.348-.54-1.974-.59-.487-1.09-.575-1.61-1.516-.52.942-1.02 1.03-1.608 1.516-.767.633-.568 1.832-.54 1.98a5.775 5.775 0 0 1 2.157-.416c.757 0 1.48.146 2.141.41ZM72.352 37.303c-.028.148-.227 1.346.54 1.98.589.486 1.088.574 1.609 1.516.52-.942 1.02-1.03 1.609-1.516.757-.626.572-1.804.54-1.974a5.775 5.775 0 0 1-2.14.41c-.764 0-1.491-.149-2.158-.416ZM81.819 30.494c-.63-.74-1.811-.566-2-.533a5.534 5.534 0 0 1 0 4.234c.189.033 1.37.206 2-.533.494-.58.583-1.072 1.54-1.584-.957-.512-1.046-1.004-1.54-1.584ZM69.197 29.964c-.121-.023-1.364-.235-2.016.53-.494.58-.584 1.072-1.54 1.584.956.512 1.046 1.004 1.54 1.584.653.765 1.894.553 2.016.53a5.532 5.532 0 0 1 0-4.228ZM79.782 29.872c.16-.11 1.116-.81 1.03-1.769-.066-.754-.356-1.164-.048-2.192-1.044.304-1.46.018-2.227-.048-.982-.084-1.696.872-1.799 1.018a5.72 5.72 0 0 1 3.044 2.99ZM69.23 34.275c-.109.073-1.13.786-1.043 1.778.067.754.357 1.164.049 2.192 1.044-.304 1.46-.018 2.226.048.996.085 1.715-.898 1.804-1.024a5.72 5.72 0 0 1-3.035-2.994ZM76.738 37.274c.103.147.817 1.103 1.8 1.018.766-.065 1.182-.351 2.226-.047-.308-1.028-.018-1.438.049-2.192.085-.96-.87-1.659-1.03-1.77a5.72 5.72 0 0 1-3.045 2.991ZM72.266 26.887c-.088-.126-.808-1.11-1.804-1.024-.766.066-1.182.352-2.227.048.309 1.028.019 1.438-.048 2.192-.088.991.934 1.704 1.044 1.778a5.72 5.72 0 0 1 3.035-2.994ZM74.51 27.577c-2.522 0-4.573 2.02-4.573 4.5 0 2.483 2.051 4.502 4.573 4.502 2.52 0 4.571-2.02 4.571-4.501 0-2.482-2.05-4.5-4.572-4.5Zm-.009 7.096c-1.456 0-2.636-1.162-2.636-2.595 0-1.433 1.18-2.595 2.636-2.595 1.456 0 2.637 1.162 2.637 2.595 0 1.433-1.18 2.595-2.637 2.595Z" />
+        <path d="M75.988 32.078c0-1.433-.442-2.595-1.471-2.595-1.03 0-1.472 1.162-1.472 2.595 0 1.433.442 2.595 1.472 2.595s1.471-1.162 1.471-2.595ZM74.5 48.504l-19.107-11.98L74.5 64l19.107-27.476L74.5 48.504Zm0 9.379-4.052-6.909c1.32.205 2.076.403 4.052.403 2.018 0 2.731-.198 4.052-.403L74.5 57.883Z" />
+        <path d="M74.5 0 55.393 32.654 74.5 44.634l19.107-11.98L74.5 0Zm6.391 19.415c-.486 1.515-.413 2.888.162 3.067-1.538-.479-2.391-2.094-1.905-3.609.486-1.514 2.127-2.354 3.665-1.876-.575-.178-1.436.904-1.922 2.419ZM74.5 6.742l4.587 7.822c-1.494-.232-2.302-.456-4.587-.456-2.238 0-3.093.224-4.588.456L74.5 6.742Zm2.851 11.874c0 1.538-1.267 2.785-2.83 2.785-1.563 0-2.83-1.247-2.83-2.785 0-1.539 1.267-2.786 2.83-2.786 1.563 0 2.83 1.247 2.83 2.786Zm-7.5.257c.487 1.515-.366 3.13-1.905 3.608.576-.179.649-1.551.163-3.066-.486-1.514-1.347-2.597-1.922-2.418 1.538-.478 3.179.362 3.665 1.876Zm-11.186 13.3c3.232-5.282 9.114-8.816 15.835-8.816 6.72 0 12.603 3.534 15.834 8.816L74.5 42.101l-15.835-9.928Z" />
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
