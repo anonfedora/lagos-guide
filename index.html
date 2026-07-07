@@ -104,6 +104,69 @@
     <span class="time-label">Lagos Time</span>
     <span class="time-value" id="time-value">--:--</span>
   </div>
+  <div class="weather-widget" id="weather-widget" aria-live="polite">
+    <span class="weather-icon" id="weather-icon">🌤️</span>
+    <span class="weather-temp" id="weather-temp">--°C</span>
+    <span class="weather-desc" id="weather-desc">Loading...</span>
+  </div>
+  <div class="aqi-widget" id="aqi-widget" aria-live="polite">
+    <span class="aqi-label">Air Quality</span>
+    <span class="aqi-value" id="aqi-value">--</span>
+    <span class="aqi-status" id="aqi-status">Loading...</span>
+  </div>
+</section>
+
+<!-- MAP WIDGET -->
+<section class="map-widget-section">
+  <div class="wrap">
+    <div class="map-widget">
+      <div class="map-header">
+        <h3>Lagos Map</h3>
+        <p class="map-sub">Key locations across the city</p>
+      </div>
+      <div class="map-embed">
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=3.2%2C6.4%2C3.6%2C6.6&amp;layer=mapnik&amp;marker=6.5244%2C3.3792"
+          width="100%"
+          height="400"
+          style="border:0;"
+          loading="lazy"
+          title="Lagos Map">
+        </iframe>
+      </div>
+      <div class="map-locations">
+        <div class="map-location-item">
+          <span class="map-loc-icon">🏨</span>
+          <span class="map-loc-name">Victoria Island</span>
+          <a href="https://www.google.com/maps/search/Victoria+Island+Lagos+Nigeria" target="_blank" rel="noopener" class="map-loc-link">View ↗</a>
+        </div>
+        <div class="map-location-item">
+          <span class="map-loc-icon">🏝️</span>
+          <span class="map-loc-name">Ikoyi</span>
+          <a href="https://www.google.com/maps/search/Ikoyi+Lagos+Nigeria" target="_blank" rel="noopener" class="map-loc-link">View ↗</a>
+        </div>
+        <div class="map-location-item">
+          <span class="map-loc-icon">🌊</span>
+          <span class="map-loc-name">Lekki</span>
+          <a href="https://www.google.com/maps/search/Lekki+Lagos+Nigeria" target="_blank" rel="noopener" class="map-loc-link">View ↗</a>
+        </div>
+        <div class="map-location-item">
+          <span class="map-loc-icon">🌉</span>
+          <span class="map-loc-name">Third Mainland Bridge</span>
+          <a href="https://www.google.com/maps/search/Third+Mainland+Bridge+Lagos+Nigeria" target="_blank" rel="noopener" class="map-loc-link">View ↗</a>
+        </div>
+        <div class="map-location-item">
+          <span class="map-loc-icon">✈️</span>
+          <span class="map-loc-name">MM2 Airport</span>
+          <a href="https://www.google.com/maps/search/Murtala+Muhammed+International+Airport+Lagos" target="_blank" rel="noopener" class="map-loc-link">View ↗</a>
+        </div>
+      </div>
+      <div class="geolocation-section">
+        <button id="nearbyBtn" class="nearby-btn">📍 Find nearby places</button>
+        <div id="nearbyResults" class="nearby-results"></div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- 01 GETTING AROUND -->
@@ -606,11 +669,18 @@
       <div class="cell"><div class="top"><h3>Lekki Conservation Centre</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Lekki+Conservation+Centre+Lagos">Map ↗</a></div><div class="area">Lekki</div><p>Nature reserve with a 401-meter canopy walkway through mangrove forests. Spot monkeys, birds, and diverse wildlife.</p></div>
       <div class="cell"><div class="top"><h3>Freedom Park</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Freedom+Park+Lagos+Island">Map ↗</a></div><div class="area">Lagos Island</div><p>Historic colonial prison turned cultural park. Live music, art exhibitions, and a peaceful green space in the city center.</p></div>
       <div class="cell"><div class="top"><h3>National Museum Lagos</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com.maps/search/?api=1&amp;query=National+Museum+Lagos+Onikan">Map ↗</a></div><div class="area">Onikan, Lagos Island</div><p>Nigeria's premier museum showcasing Nigerian art, history, and archaeology. Learn about the country's rich cultural heritage.</p></div>
+      <div class="cell"><div class="top"><h3>New Afrika Shrine</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=New+Afrika+Shrine+Ikeja+Lagos">Map ↗</a></div><div class="area">Ikeja</div><p>Legendary music venue and home of Fela Kuti's Afrobeat legacy. Live music, cultural performances, and vibrant nightlife.</p></div>
+      <div class="cell"><div class="top"><h3>The National Theatre</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=National+Theatre+Iganmu+Lagos">Map ↗</a></div><div class="area">Iganmu</div><p>Iconic cultural landmark and performance venue. Hosts concerts, plays, and cultural events in a distinctive architectural setting.</p></div>
+      <div class="cell"><div class="top"><h3>Terra Kulture</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Terra+Kulture+Victoria+Island+Lagos">Map ↗</a></div><div class="area">Victoria Island</div><p>Cultural center showcasing Nigerian arts, food, and fashion. Art gallery, restaurant, and venue for cultural events.</p></div>
+      <div class="cell"><div class="top"><h3>Elegushi Beach</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Elegushi+Beach+Lekki+Lagos">Map ↗</a></div><div class="area">Lekki</div><p>Popular private beach known for its vibrant nightlife, beach parties, and local food vendors. Great for weekend entertainment and socializing.</p></div>
       <div class="cell"><div class="top"><h3>Landmark Beach</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com.maps/search/?api=1&amp;query=Landmark+Beach+Victoria+Island+Lagos">Map ↗</a></div><div class="area">Victoria Island</div><p>Popular beach with restaurants, bars, and entertainment. Great for sunset views and beachfront relaxation.</p></div>
+      <div class="cell"><div class="top"><h3>Oniru Beach</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Oniru+Beach+Victoria+Island+Lagos">Map ↗</a></div><div class="area">Victoria Island</div><p>Popular beach in Victoria Island with beach clubs, restaurants, and water sports activities.</p></div>
       <div class="cell"><div class="top"><h3>Cathedral Church of Christ</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com.maps/search/?api=1&amp;query=Cathedral+Church+of+Christ+Marina+Lagos">Map ↗</a></div><div class="area">Marina, Lagos Island</div><p>Historic Anglican cathedral built in 1867. Beautiful Gothic architecture and an important religious landmark.</p></div>
       <div class="cell"><div class="top"><h3>Third Mainland Bridge</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com.maps/search/?api=1&amp;query=Third+Mainland+Bridge+Lagos">Map ↗</a></div><div class="area">Connects Lagos Island to Mainland</div><p>At 11.8 km, Africa's longest bridge. Stunning views of Lagos Lagoon and the city skyline, especially at sunset.</p></div>
       <div class="cell"><div class="top"><h3>Lekki-Ikoyi Link Bridge</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com.maps/search/?api=1&amp;query=Lekki-Ikoyi+Link+Bridge+Lagos">Map ↗</a></div><div class="area">Connects Lekki and Ikoyi</div><p>Modern cable-stayed bridge popular for evening walks and photography. Great views of the surrounding lagoon.</p></div>
       <div class="cell"><div class="top"><h3>Balogun Market</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com.maps/search/?api=1&amp;query=Balogun+Market+Lagos+Island">Map ↗</a></div><div class="area">Lagos Island</div><p>Largest market in Lagos for fabrics, lace, and textiles. A sensory overload of colors and Nigerian fashion.</p></div>
+      <div class="cell"><div class="top"><h3>Ikeja City Mall</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Ikeja+City+Mall+Lagos">Map ↗</a></div><div class="area">Ikeja</div><p>Major shopping mall on the mainland with international brands, cinema, restaurants, and entertainment options.</p></div>
+      <div class="cell"><div class="top"><h3>Computer Village</h3><a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&amp;query=Computer+Village+Ikeja+Lagos">Map ↗</a></div><div class="area">Ikeja</div><p>Nigeria's largest tech market for phones, laptops, and electronics. Bustling hub for tech enthusiasts and repairs.</p></div>
     </div>
 
     <div class="grid g2" style="margin-top:18px">

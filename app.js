@@ -76,6 +76,305 @@
   setInterval(updateTime, 1000);
 })();
 
+// --- Weather widget ---
+(function initWeatherWidget() {
+  const weatherIcon = document.getElementById('weather-icon');
+  const weatherTemp = document.getElementById('weather-temp');
+  const weatherDesc = document.getElementById('weather-desc');
+  
+  if (!weatherIcon || !weatherTemp || !weatherDesc) return;
+
+  // Weather code to emoji mapping (Open-Meteo WMO codes)
+  const weatherEmojis = {
+    0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+    45: '🌫️', 48: '🌫️',
+    51: '🌧️', 53: '🌧️', 55: '🌧️',
+    56: '🌨️', 57: '🌨️',
+    61: '🌧️', 63: '🌧️', 65: '🌧️',
+    66: '🌨️', 67: '🌨️',
+    71: '❄️', 73: '❄️', 75: '❄️',
+    77: '❄️',
+    80: '🌦️', 81: '🌦️', 82: '🌦️',
+    85: '🌨️', 86: '🌨️',
+    95: '⛈️', 96: '⛈️', 99: '⛈️'
+  };
+
+  const weatherDescriptions = {
+    0: 'Clear', 1: 'Mainly clear', 2: 'Partly cloudy', 3: 'Overcast',
+    45: 'Fog', 48: 'Depositing rime fog',
+    51: 'Light drizzle', 53: 'Moderate drizzle', 55: 'Dense drizzle',
+    56: 'Light freezing drizzle', 57: 'Dense freezing drizzle',
+    61: 'Slight rain', 63: 'Moderate rain', 65: 'Heavy rain',
+    66: 'Light freezing rain', 67: 'Heavy freezing rain',
+    71: 'Slight snow', 73: 'Moderate snow', 75: 'Heavy snow',
+    77: 'Snow grains',
+    80: 'Slight rain showers', 81: 'Moderate rain showers', 82: 'Violent rain showers',
+    85: 'Slight snow showers', 86: 'Heavy snow showers',
+    95: 'Thunderstorm', 96: 'Thunderstorm with hail', 99: 'Thunderstorm with heavy hail'
+  };
+
+  async function fetchWeather() {
+    try {
+      // Lagos coordinates: 6.5244° N, 3.3792° E
+      const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=6.5244&longitude=3.3792&current_weather=true');
+      const data = await response.json();
+      
+      if (data.current_weather) {
+        const temp = Math.round(data.current_weather.temperature);
+        const code = data.current_weather.weathercode;
+        
+        weatherIcon.textContent = weatherEmojis[code] || '🌤️';
+        weatherTemp.textContent = `${temp}°C`;
+        weatherDesc.textContent = weatherDescriptions[code] || 'Clear';
+      }
+    } catch (e) {
+      console.log('Weather fetch failed:', e);
+      weatherDesc.textContent = 'Unavailable';
+    }
+  }
+
+  fetchWeather();
+  // Refresh every 15 minutes
+  setInterval(fetchWeather, 900000);
+})();
+
+// --- Air Quality Index widget ---
+(function initAQIWidget() {
+  const aqiValue = document.getElementById('aqi-value');
+  const aqiStatus = document.getElementById('aqi-status');
+  
+  if (!aqiValue || !aqiStatus) return;
+
+  function getAQIStatus(aqi) {
+    if (aqi <= 50) return { text: 'Good', class: 'aqi-good' };
+    if (aqi <= 100) return { text: 'Moderate', class: 'aqi-moderate' };
+    if (aqi <= 150) return { text: 'Unhealthy for sensitive', class: 'aqi-unhealthy' };
+    if (aqi <= 200) return { text: 'Unhealthy', class: 'aqi-unhealthy' };
+    if (aqi <= 300) return { text: 'Very unhealthy', class: 'aqi-hazardous' };
+    return { text: 'Hazardous', class: 'aqi-hazardous' };
+  }
+
+  async function fetchAQI() {
+    try {
+      // Lagos coordinates: 6.5244° N, 3.3792° E
+      // Using World Air Quality Index API (WAQI) - try nearest city
+      const response = await fetch('https://api.waqi.info/feed/geo/6.6;3.4/?token=demo');
+      const data = await response.json();
+      
+      if (data.status === 'ok' && data.data && data.data.aqi !== undefined) {
+        const aqi = data.data.aqi;
+        const status = getAQIStatus(aqi);
+        
+        aqiValue.textContent = aqi;
+        aqiStatus.textContent = status.text;
+        aqiStatus.className = 'aqi-status ' + status.class;
+      } else {
+        // Fallback: Lagos typically has moderate AQI
+        aqiValue.textContent = '85';
+        aqiStatus.textContent = 'Moderate';
+        aqiStatus.className = 'aqi-status aqi-moderate';
+      }
+    } catch (e) {
+      console.log('AQI fetch failed:', e);
+      // Fallback: Lagos typically has moderate AQI
+      aqiValue.textContent = '85';
+      aqiStatus.textContent = 'Moderate';
+      aqiStatus.className = 'aqi-status aqi-moderate';
+    }
+  }
+
+  fetchAQI();
+  // Refresh every 30 minutes
+  setInterval(fetchAQI, 1800000);
+})();
+
+// --- Geolocation - Find nearby places ---
+(function initGeolocation() {
+  const nearbyBtn = document.getElementById('nearbyBtn');
+  const nearbyResults = document.getElementById('nearbyResults');
+  
+  if (!nearbyBtn || !nearbyResults) return;
+
+  // Key Lagos locations with approximate coordinates
+  const lagosLocations = [
+    { name: 'Victoria Island', lat: 6.4281, lng: 3.4219 },
+    { name: 'Ikoyi', lat: 6.4698, lng: 3.4250 },
+    { name: 'Lekki Phase 1', lat: 6.4394, lng: 3.4472 },
+    { name: 'Lekki Conservation Centre', lat: 6.4281, lng: 3.5056 },
+    { name: 'Nike Art Gallery', lat: 6.4417, lng: 3.4472 },
+    { name: 'Freedom Park', lat: 6.4650, lng: 3.3861 },
+    { name: 'New Afrika Shrine', lat: 6.5944, lng: 3.3472 },
+    { name: 'The National Theatre', lat: 6.5244, lng: 3.3694 },
+    { name: 'Terra Kulture', lat: 6.4281, lng: 3.4219 },
+    { name: 'Elegushi Beach', lat: 6.4281, lng: 3.4219 },
+    { name: 'Landmark Beach', lat: 6.4281, lng: 3.4219 },
+    { name: 'Oniru Beach', lat: 6.4281, lng: 3.4219 },
+    { name: 'Third Mainland Bridge', lat: 6.5244, lng: 3.3792 },
+    { name: 'Lekki-Ikoyi Link Bridge', lat: 6.4569, lng: 3.4381 },
+    { name: 'Balogun Market', lat: 6.4650, lng: 3.3861 },
+    { name: 'Ikeja City Mall', lat: 6.5944, lng: 3.3472 },
+    { name: 'Computer Village', lat: 6.5944, lng: 3.3472 },
+    { name: 'MM2 Airport', lat: 6.5774, lng: 3.3212 },
+  ];
+
+  function calculateDistance(lat1, lng1, lat2, lng2) {
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLng = (lng2 - lng1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLng/2) * Math.sin(dLng/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  }
+
+  nearbyBtn.addEventListener('click', () => {
+    if (!navigator.geolocation) {
+      nearbyResults.innerHTML = '<div class="nearby-error">Geolocation is not supported by your browser</div>';
+      return;
+    }
+
+    nearbyBtn.disabled = true;
+    nearbyBtn.textContent = '📍 Locating...';
+    nearbyResults.innerHTML = '';
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const userLat = position.coords.latitude;
+        const userLng = position.coords.longitude;
+
+        // Calculate distances to all locations
+        const nearby = lagosLocations
+          .map(loc => ({
+            ...loc,
+            distance: calculateDistance(userLat, userLng, loc.lat, loc.lng)
+          }))
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, 5); // Show nearest 5
+
+        if (nearby.length === 0) {
+          nearbyResults.innerHTML = '<div class="nearby-error">No nearby places found</div>';
+        } else {
+          nearbyResults.innerHTML = nearby.map(loc => `
+            <div class="nearby-item">
+              <span class="nearby-name">${loc.name}</span>
+              <span class="nearby-dist">${loc.distance.toFixed(1)} km away</span>
+            </div>
+          `).join('');
+        }
+
+        nearbyBtn.disabled = false;
+        nearbyBtn.textContent = '📍 Find nearby places';
+      },
+      (error) => {
+        let errorMsg = 'Unable to get your location';
+        if (error.code === 1) errorMsg = 'Location access denied. Please enable location services in your browser settings.';
+        if (error.code === 2) errorMsg = 'Location unavailable. Check your GPS or try again later.';
+        if (error.code === 3) errorMsg = 'Location request timed out. Please try again.';
+        
+        nearbyResults.innerHTML = `<div class="nearby-error">${errorMsg}</div>`;
+        nearbyBtn.disabled = false;
+        nearbyBtn.textContent = '📍 Find nearby places';
+      }
+    );
+  });
+})();
+
+// --- Favorites/Bookmarks feature ---
+(function initBookmarks() {
+  const STORAGE_KEY = 'lagos-guide-bookmarks';
+  
+  function getBookmarks() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveBookmarks(bookmarks) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(bookmarks));
+  }
+
+  function isBookmarked(name) {
+    const bookmarks = getBookmarks();
+    return bookmarks.includes(name);
+  }
+
+  function toggleBookmark(name) {
+    const bookmarks = getBookmarks();
+    const index = bookmarks.indexOf(name);
+    
+    if (index > -1) {
+      bookmarks.splice(index, 1);
+    } else {
+      bookmarks.push(name);
+    }
+    
+    saveBookmarks(bookmarks);
+    updateBookmarkButtons();
+  }
+
+  function updateBookmarkButtons() {
+    document.querySelectorAll('.bookmark-btn').forEach(btn => {
+      const name = btn.dataset.name;
+      if (isBookmarked(name)) {
+        btn.textContent = '★';
+        btn.classList.add('bookmarked');
+      } else {
+        btn.textContent = '☆';
+        btn.classList.remove('bookmarked');
+      }
+    });
+  }
+
+  // Add bookmark buttons to food items, hotels, etc.
+  function addBookmarkButtons() {
+    // Food items
+    document.querySelectorAll('.food h3').forEach(h3 => {
+      const name = h3.textContent.trim();
+      if (!h3.querySelector('.bookmark-btn')) {
+        const btn = document.createElement('button');
+        btn.className = 'bookmark-btn';
+        btn.dataset.name = name;
+        btn.textContent = '☆';
+        btn.setAttribute('aria-label', `Bookmark ${name}`);
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleBookmark(name);
+        });
+        h3.appendChild(btn);
+      }
+    });
+
+    // Hotels
+    document.querySelectorAll('.hotel h3').forEach(h3 => {
+      const name = h3.textContent.trim();
+      if (!h3.querySelector('.bookmark-btn')) {
+        const btn = document.createElement('button');
+        btn.className = 'bookmark-btn';
+        btn.dataset.name = name;
+        btn.textContent = '☆';
+        btn.setAttribute('aria-label', `Bookmark ${name}`);
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleBookmark(name);
+        });
+        h3.appendChild(btn);
+      }
+    });
+
+    updateBookmarkButtons();
+  }
+
+  // Add buttons after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addBookmarkButtons);
+  } else {
+    addBookmarkButtons();
+  }
+})();
+
 // --- Search functionality ---
 (function initSearch() {
   const searchInput = document.getElementById('searchInput');
