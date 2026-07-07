@@ -61,6 +61,139 @@
   track.innerHTML = row + row; // duplicate for the -50% scroll loop
 })();
 
+// --- Lagos time display (WAT = UTC+1) ---
+(function updateTimeDisplay() {
+  const timeValue = document.getElementById('time-value');
+  if (!timeValue) return;
+
+  function updateTime() {
+    const now = new Date();
+    const options = { timeZone: 'Africa/Lagos', hour: '2-digit', minute: '2-digit', hour12: false };
+    timeValue.textContent = now.toLocaleTimeString('en-GB', options);
+  }
+
+  updateTime();
+  setInterval(updateTime, 1000);
+})();
+
+// --- Search functionality ---
+(function initSearch() {
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  if (!searchInput || !searchBtn) return;
+
+  // Collect all searchable content
+  const searchableElements = [];
+  document.querySelectorAll('.food h3, .hotel h3, .cell h3, .route h3, .note h3, .emerg h3').forEach(el => {
+    searchableElements.push({
+      element: el,
+      text: el.textContent.toLowerCase(),
+      parent: el.closest('.food, .hotel, .cell, .route, .note, .emerg')
+    });
+  });
+
+  // Also search section headings
+  document.querySelectorAll('.sec-head h2').forEach(el => {
+    searchableElements.push({
+      element: el,
+      text: el.textContent.toLowerCase(),
+      parent: el.closest('.block')
+    });
+  });
+
+  function performSearch(query) {
+    const searchTerm = query.toLowerCase().trim();
+    
+    // Clear previous highlights
+    document.querySelectorAll('.search-highlight').forEach(el => {
+      el.classList.remove('search-highlight');
+    });
+
+    if (!searchTerm) return;
+
+    let firstMatch = null;
+
+    searchableElements.forEach(item => {
+      if (item.text.includes(searchTerm)) {
+        item.element.classList.add('search-highlight');
+        if (!firstMatch) {
+          firstMatch = item.parent;
+        }
+      }
+    });
+
+    // Scroll to first match
+    if (firstMatch) {
+      firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  searchInput.addEventListener('input', (e) => {
+    performSearch(e.target.value);
+  });
+
+  searchBtn.addEventListener('click', () => {
+    performSearch(searchInput.value);
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      performSearch(searchInput.value);
+    }
+  });
+})();
+
+// --- Currency converter ---
+(function initCurrencyConverter() {
+  const fromAmount = document.getElementById('fromAmount');
+  const fromCurrency = document.getElementById('fromCurrency');
+  const toAmount = document.getElementById('toAmount');
+  const toCurrency = document.getElementById('toCurrency');
+  const converterNote = document.getElementById('converterNote');
+  
+  if (!fromAmount || !fromCurrency || !toAmount || !toCurrency) return;
+
+  let exchangeRates = null;
+
+  // Fetch exchange rates
+  async function fetchRates() {
+    try {
+      const response = await fetch('https://api.exchangerate-api.com/v4/latest/NGN');
+      const data = await response.json();
+      exchangeRates = data.rates;
+      converterNote.textContent = 'Rates updated: ' + new Date().toLocaleTimeString();
+      convert();
+    } catch (e) {
+      console.log('Exchange rate fetch failed:', e);
+      converterNote.textContent = 'Using cached rates (API unavailable)';
+    }
+  }
+
+  function convert() {
+    if (!exchangeRates) return;
+
+    const amount = parseFloat(fromAmount.value) || 0;
+    const from = fromCurrency.value;
+    const to = toCurrency.value;
+
+    // Convert from source to NGN, then to target
+    const inNGN = from === 'NGN' ? amount : amount / exchangeRates[from];
+    const result = to === 'NGN' ? inNGN : inNGN * exchangeRates[to];
+
+    toAmount.value = result.toFixed(2);
+  }
+
+  // Event listeners
+  fromAmount.addEventListener('input', convert);
+  fromCurrency.addEventListener('change', convert);
+  toCurrency.addEventListener('change', convert);
+
+  // Initial fetch
+  fetchRates();
+  // Refresh rates every 5 minutes
+  setInterval(fetchRates, 300000);
+})();
+
 // --- Food diet filter ---
 const filterbar = document.getElementById('filterbar');
 const foodCards = Array.from(document.querySelectorAll('.food'));
