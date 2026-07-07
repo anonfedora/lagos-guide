@@ -1,15 +1,15 @@
-# Contributing to the Mumbai Field Guide
+# Contributing to the Lagos City Guide
 
-Thanks for helping make this guide more useful for Devcon 8 attendees! This is a community project, and the most valuable contributions are usually **small, accurate, local corrections** — a closed restaurant, a changed fare, a better route, a new dietary option.
+Thanks for helping make this guide more useful for visitors to Lagos! This is a community project, and the most valuable contributions are usually **small, accurate, local corrections** — a closed restaurant, a changed fare, a better route, a new dietary option.
 
-You don't need to be a developer. If you can spot an error, [open an issue](https://github.com/Sahilsen/devcon8-guide/issues). If you're comfortable with HTML, read on.
+You don't need to be a developer. If you can spot an error, open an issue. If you're comfortable with HTML, read on.
 
 ---
 
 ## Ground rules
 
-1. **Accuracy over hype.** Only add places you'd actually recommend. Prices and details change — phrase them as approximate ("around ₹600 to 1,200") and avoid hard claims.
-2. **Stay unofficial.** Don't imply affiliation with the Ethereum Foundation or Devcon. Keep the disclaimer in the footer intact.
+1. **Accuracy over hype.** Only add places you'd actually recommend. Prices and details change — phrase them as approximate ("around ₦5,000 to 15,000") and avoid hard claims.
+2. **Stay unofficial.** Keep the disclaimer in the footer intact.
 3. **No tracking, no heavy dependencies.** This is a static site by design. Don't add build tools, analytics, or frameworks.
 4. **Keep it accessible.** Every change must keep the page usable by keyboard and screen reader (see the checklist below).
 
@@ -48,10 +48,10 @@ Food cards live in the `#food` section inside `<div class="food-grid">`. Copy an
   <div class="top">
     <h4>Place Name</h4>
     <a class="maplink" target="_blank" rel="noopener"
-       href="https://www.google.com/maps/search/?api=1&amp;query=Place+Name+Area+Mumbai">Map ↗</a>
+       href="https://www.google.com/maps/search/?api=1&amp;query=Place+Name+Area+Lagos">Map ↗</a>
   </div>
   <div class="where">Area, cuisine</div>
-  <p>One or two sentences. Name the meat type for non-veg. Note dairy/ghee defaults.</p>
+  <p>One or two sentences. Name the meat type for non-veg. Note dairy defaults.</p>
   <div class="tags">
     <span class="tag veg">Vegetarian</span>
     <span class="tag vegan">Vegan on request</span>
@@ -86,12 +86,12 @@ These use the `.cell` pattern inside a `.grid` (`g2`/`g3`/`g4` = 2/3/4 columns):
 ```html
 <div class="cell">
   <div class="top"><h3>Name</h3><span class="tier">Luxury</span></div>
-  <div class="area">Area, distance to BKC</div>
+  <div class="area">Area, distance to city center</div>
   <p>Short description.</p>
   <div class="foot">
     <span class="chip">approx <b>$$$</b></span>
     <a class="maplink" target="_blank" rel="noopener"
-       href="https://www.google.com/maps/search/?api=1&amp;query=Name+Mumbai">Map <span class="arr">↗</span></a>
+       href="https://www.google.com/maps/search/?api=1&amp;query=Name+Lagos">Map <span class="arr">↗</span></a>
   </div>
 </div>
 ```
@@ -103,7 +103,7 @@ Keep grids **evenly filled** (a `g3` grid should have a multiple of 3 cards) so 
 Always use the query-search form so it works without coordinates, and **escape the `&` as `&amp;`** in HTML:
 
 ```
-https://www.google.com/maps/search/?api=1&amp;query=Search+Terms+Mumbai
+https://www.google.com/maps/search/?api=1&amp;query=Search+Terms+Lagos+Nigeria
 ```
 
 ### A landmark silhouette
@@ -121,9 +121,9 @@ Keep them recognizable and add `aria-hidden="true"`.
 ## Writing style
 
 - **No em dashes or en dashes** (`—` / `–`). Use commas, parentheses, "to" for ranges, or split the sentence.
-- **Do** hyphenate compound modifiers: dairy-free, non-veg, air-conditioned, women-only, off-peak, ride-hailing, etc.
+- **Do** hyphenate compound modifiers: dairy-free, non-veg, air-conditioned, off-peak, ride-hailing, etc.
 - Plain, friendly, concise. British or American spelling is fine; be consistent within a card.
-- Indian terms: gloss them on first use (e.g. "goat (called mutton in India)").
+- Nigerian terms: gloss them on first use if needed (e.g. "danfo - shared minibus").
 
 ## Accessibility checklist (required for any change)
 
@@ -148,4 +148,4 @@ Keep them recognizable and add `aria-hidden="true"`.
 - Open a pull request describing what changed and (for content) how you verified it.
 - A maintainer merges to `main`; GitHub Pages redeploys automatically.
 
-Thanks for contributing — see you in Mumbai. 🪔
+Thanks for contributing — see you in Lagos. 🇳🇬

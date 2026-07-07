@@ -1,13 +1,11 @@
-# Devcon 8 India — Mumbai Field Guide
+# Lagos City Guide — Nigeria
 
-An unofficial, single-page **city guide for attendees of Devcon 8** in Mumbai, India.
-Built to help people coming from across the city, around India, and the rest of the world land smoothly, get to the venue, eat well on any diet, and explore Maximum City without the rookie mistakes.
+A comprehensive, single-page **city guide for visitors to Lagos**, Nigeria.
+Built to help people coming from across Nigeria, Africa, and the rest of the world land smoothly, get around the city, eat well on any diet, and explore Africa's largest city without the rookie mistakes.
 
-**Event:** Devcon 8 · Nov 3–6, 2026 · Jio World Convention Centre, Bandra Kurla Complex (BKC), Mumbai · (just before Diwali on Nov 8).
+🔗 **Live site:** [Coming soon]
 
-🔗 **Live site:** https://sahilsen.github.io/devcon8-guide/
-
-> ⚠️ **Unofficial.** This guide is a community project and is **not affiliated with or endorsed by the Ethereum Foundation or Devcon**. Always confirm dates, venue, visa rules, prices, and the official programme on [devcon.org](https://devcon.org/en/).
+> ⚠️ **Unofficial.** This guide is a community project. Always confirm prices, venues, and current conditions before visiting.
 
 ---
 
@@ -17,15 +15,15 @@ A single scrolling page with nine sections, each place linking straight to Googl
 
 | # | Section | Covers |
 |---|---------|--------|
-| 01 | **Getting to the venue** | Airport, Metro Line 3, local trains, autos, taxis, ride-hailing, traffic warnings |
-| 02 | **Hotels** | In-BKC, Bandra, Andheri and budget options, by price and distance |
-| 03 | **Food** | Filterable by **vegetarian, vegan, dairy-free, Jain, kosher, halal, non-veg** (meat type named), with a spice meter |
-| 04 | **Water & health** | Tap-water warning, what's safe to drink, tummy kit, pharmacies & hospitals |
-| 05 | **SIM, data & money** | eSIM vs local SIM, UPI, cash, ATMs, currency, plugs |
-| 06 | **Things to do** | Landmarks, day trips, shopping, Diwali |
-| 07 | **Web3 in India** | Crypto tax reality (30% + 1% TDS), meetups, coworking, key safety |
-| 08 | **Street smart** | Safety, smoking/drinking/drugs laws, getting around, emergency numbers |
-| 09 | **Good to know** | Visa, weather, time zone, language (Hindi & Marathi phrases), etiquette, accessibility |
+| 01 | **Getting around** | Airport (MM2), ride-hailing (Uber/Bolt), taxis, danfo buses, traffic warnings |
+| 02 | **Hotels** | Victoria Island, Ikoyi, Lekki and budget options, by price and distance |
+| 03 | **Food** | Filterable by **vegetarian, vegan, dairy-free, halal, non-veg** (meat type named), with spice meter |
+| 04 | **Water & health** | Tap-water warning, what's safe to drink, pharmacies & hospitals |
+| 05 | **SIM, data & money** | eSIM vs local SIM (MTN/Airtel/Glo/9mobile), cash, ATMs, currency (NGN) |
+| 06 | **Things to do** | Landmarks, beaches, markets, art galleries, nature reserves |
+| 07 | **Tech & coworking** | Meetups, coworking spaces, internet connectivity |
+| 08 | **Street smart** | Safety, getting around, emergency numbers |
+| 09 | **Good to know** | Visa, weather, time zone, language (English & Pidgin phrases), etiquette, accessibility |
 
 ## Accessibility
 
@@ -41,7 +39,7 @@ Plus a "skip to content" link, visible keyboard focus, ARIA labels on map links 
 
 ## Design
 
-Warm, lightweight "earthen" theme (beige + terracotta / ochre / olive), with faint **line-art silhouettes of Mumbai landmarks** behind the content — the Bandra-Worli Sea Link, Gateway of India, Taj Mahal Palace, the Imperial twin towers, Rajabai Clock Tower, and the Municipal (BMC) building. The hero title layers **मुंबई** as a rippling cast shadow behind "Mumbai."
+Warm, lightweight "earthen" theme (beige + terracotta / ochre / olive), with faint **line-art silhouettes of Lagos landmarks** behind the content — Third Mainland Bridge, Lekki-Ikoyi Link Bridge, and iconic Lagos skyline elements. The hero title layers "Lagos" with a subtle shadow effect.
 
 ---
 

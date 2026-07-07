@@ -1,4 +1,4 @@
-// Devcon 8 India / Mumbai Field Guide / interactions
+// Lagos City Guide / interactions
 
 // --- Hero sunburst rays (generated so the markup stays clean) ---
 (function buildRays() {
@@ -21,12 +21,42 @@
 (function buildTicker() {
   const track = document.getElementById('ticker');
   if (!track) return;
-  const items = [
-    ['Nov 3 to 6, 2026', 1], ['Jio World Convention Centre', 0], ['Bandra Kurla Complex', 0],
-    ['IST = UTC+5:30', 0], ['Currency: INR (₹)', 0], ['Diwali: Nov 8', 1],
-    ['Do not drink the tap water', 1], ['English widely spoken', 0], ['Take the Metro in rush hour', 0],
-    ['Emergency: 112', 1], ['Every place links to Maps', 0],
+
+  // Fetch live exchange rates
+  async function fetchRates() {
+    try {
+      const response = await fetch('https://api.exchangerate-api.com/v4/latest/NGN');
+      const data = await response.json();
+      return data.rates;
+    } catch (e) {
+      console.log('Exchange rate fetch failed:', e);
+      return null;
+    }
+  }
+
+  const baseItems = [
+    ['Lagos, Nigeria', 1], ['Victoria Island', 0], ['Ikoyi & Lekki', 0],
+    ['WAT = UTC+1', 0], ['English widely spoken', 0],
+    ['Do not drink the tap water', 1], ['Use ride-hailing apps', 0], ['Emergency: 112', 1],
+    ['Every place links to Maps', 0],
   ];
+
+  // Build ticker with live rates
+  fetchRates().then(rates => {
+    if (rates && rates.USD && rates.EUR && rates.GBP) {
+      const rateItems = [
+        [`<span class="currency-symbol">$</span>1 = ₦${(1/rates.USD).toFixed(0)}`, 1],
+        [`<span class="currency-symbol">€</span>1 = ₦${(1/rates.EUR).toFixed(0)}`, 1],
+        [`<span class="currency-symbol">£</span>1 = ₦${(1/rates.GBP).toFixed(0)}`, 1],
+      ];
+      const items = [...baseItems.slice(0, 4), ...rateItems, ...baseItems.slice(4)];
+      const row = items.map(([t, hl]) => `<span class="${hl ? 'hl' : ''}">${t} &nbsp;·</span>`).join('');
+      track.innerHTML = row + row;
+    }
+  });
+
+  // Initial fallback while loading
+  const items = baseItems;
   const row = items.map(([t, hl]) => `<span class="${hl ? 'hl' : ''}">${t} &nbsp;·</span>`).join('');
   track.innerHTML = row + row; // duplicate for the -50% scroll loop
 })();
@@ -121,13 +151,14 @@ navLinks?.addEventListener('click', (e) => {
 // --- Food cuisine emojis (decorative, hidden from screen readers) ---
 (function foodEmojis() {
   const map = [
-    [['chabad', 'kosher'], '✡️'], [['south indian'], '🥞'],
-    [['seafood', 'coastal', 'gajalee', 'mahesh', 'trishna'], '🦐'],
-    [['mughlai', 'kebab', 'biryani', 'bademiya', 'shalimar', 'mohammed ali', 'lucky', 'street food strip'], '🍢'],
-    [['parsi', 'irani', 'britannia', 'kyani'], '🍳'], [['dim sum', 'yauatcha'], '🥟'],
-    [['vegan', 'plant based', 'organic', 'health'], '🥗'], [['sattvic', 'govinda'], '🪷'],
-    [['thali', 'gujarati'], '🍛'], [['chaat', 'pani puri', 'street classic'], '🥪'],
-    [['juice', 'chai'], '🥤'], [['tasting', 'modern indian', 'goan'], '🍴'],
+    [['seafood', 'coastal'], '�'],
+    [['suya', 'asun', 'kebab', 'grilled'], '🍢'],
+    [['jollof', 'rice', 'fried rice'], '�'],
+    [['swallow', 'fufu', 'eba', 'pounded yam', 'amala'], '�'],
+    [['vegan', 'plant based', 'organic', 'health'], '🥗'],
+    [['juice', 'smoothie'], '�'],
+    [['nigerian', 'local', 'traditional'], '🍴'],
+    [['street food', 'suya spot'], '🥪'],
   ];
   document.querySelectorAll('.food').forEach((card) => {
     const h4 = card.querySelector('h4');
@@ -182,7 +213,7 @@ navLinks?.addEventListener('click', (e) => {
     el.classList.add('reading');
     el.scrollIntoView({ block: 'center', behavior: reduce() ? 'auto' : 'smooth' });
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'en-IN'; u.rate = 1;
+    u.lang = 'en-NG'; u.rate = 1;
     u.onend = () => { if (active) speakFrom(i + 1); };
     synth.speak(u);
   }

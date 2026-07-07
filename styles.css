@@ -1,7 +1,7 @@
 /* ============================================================
-   Mumbai Field Guide - Light & Easy
+   Lagos City Guide - Light & Easy
    Soft, lightweight, airy. Warm off-white, gentle accents,
-   no glow, hairlines and soft shadows. Mumbai landmark
+   no glow, hairlines and soft shadows. Lagos landmark
    silhouettes kept faint in the background.
    ============================================================ */
 
@@ -69,7 +69,7 @@ body.hc .landmark { display: none; }
 .hero-kicker { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; color: var(--ink-2); }
 .hero-kicker .dotx { width: 6px; height: 6px; border-radius: 50%; background: var(--marigold); }
 .hero h1 { font-size: clamp(54px, 12vw, 168px); line-height: 0.9; margin-top: 24px; letter-spacing: -0.04em; color: var(--ink); }
-/* bilingual layered title: मुंबई ghosted behind Mumbai. */
+/* bilingual layered title: decorative echo effect. */
 .hero h1 .city { position: relative; display: inline-block; }
 .hero h1 .latin { position: relative; z-index: 1; }
 .hero h1 .echo { position: absolute; left: 0; top: 0; z-index: 0; transform-origin: left top; transform: translate(0.34em, 0.46em) skewX(-20deg) scaleY(1.08); font-family: "Mukta", system-ui, sans-serif; font-weight: 800; letter-spacing: 0; color: var(--violet); opacity: 0.15; line-height: 1.04; white-space: nowrap; pointer-events: none; filter: url(#water); }
@@ -82,6 +82,7 @@ body.reduce-motion .hero h1 .echo { filter: none; }
 .ticker-track { display: inline-flex; animation: scroll 38s linear infinite; will-change: transform; }
 .ticker-track span { font-family: var(--mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); padding: 15px 26px; }
 .ticker-track .hl { color: var(--violet); font-weight: 700; }
+.ticker-track .currency-symbol { font-size: 1.2em; font-weight: 700; }
 @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* floating shapes (soft, no glow) */
