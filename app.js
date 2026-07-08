@@ -453,6 +453,7 @@
   if (!fromAmount || !fromCurrency || !toAmount || !toCurrency) return;
 
   let exchangeRates = null;
+  let usdRate = null;
 
   // Fetch exchange rates
   async function fetchRates() {
@@ -460,11 +461,16 @@
       const response = await fetch('https://api.exchangerate-api.com/v4/latest/NGN');
       const data = await response.json();
       exchangeRates = data.rates;
+      if (exchangeRates.USD) {
+        usdRate = 1 / exchangeRates.USD; // NGN per USD
+        console.log('USD Rate:', usdRate.toFixed(2), 'NGN per USD');
+      }
       converterNote.textContent = 'Rates updated: ' + new Date().toLocaleTimeString();
       convert();
+      updateStaticPrices();
     } catch (e) {
       console.log('Exchange rate fetch failed:', e);
-      converterNote.textContent = 'Using cached rates (API unavailable)';
+      converterNote.textContent = 'Rate not available (API error)';
     }
   }
 
@@ -480,6 +486,36 @@
     const result = to === 'NGN' ? inNGN : inNGN * exchangeRates[to];
 
     toAmount.value = result.toFixed(2);
+  }
+
+  function updateStaticPrices() {
+    if (!usdRate) return; // Don't update if rate not available
+
+    // Update all food price displays with live USD rate
+    document.querySelectorAll('.price').forEach(el => {
+      const text = el.textContent;
+      const match = text.match(/₦([\d,]+)-([\d,]+)/);
+      if (match) {
+        const minNGN = parseInt(match[1].replace(/,/g, ''));
+        const maxNGN = parseInt(match[2].replace(/,/g, ''));
+        const minUSD = (minNGN / usdRate).toFixed(0);
+        const maxUSD = (maxNGN / usdRate).toFixed(0);
+        el.textContent = `₦${minNGN.toLocaleString()}-${maxNGN.toLocaleString()} (~$${minUSD}-${maxUSD})`;
+      }
+    });
+
+    // Update hotel prices
+    document.querySelectorAll('.chip').forEach(el => {
+      const text = el.textContent;
+      const match = text.match(/₦([\d,]+)-([\d,]+)\/night/);
+      if (match) {
+        const minNGN = parseInt(match[1].replace(/,/g, ''));
+        const maxNGN = parseInt(match[2].replace(/,/g, ''));
+        const minUSD = (minNGN / usdRate).toFixed(0);
+        const maxUSD = (maxNGN / usdRate).toFixed(0);
+        el.textContent = `₦${minNGN.toLocaleString()}-${maxNGN.toLocaleString()}/night (~$${minUSD}-${maxUSD})`;
+      }
+    });
   }
 
   // Event listeners
