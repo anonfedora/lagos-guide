@@ -3,7 +3,7 @@
 A comprehensive, single-page **city guide for visitors to Lagos**, Nigeria.
 Built to help people coming from across Nigeria, Africa, and the rest of the world land smoothly, get around the city, eat well on any diet, and explore Africa's largest city without the rookie mistakes.
 
-🔗 **Live site:** [Coming soon]
+🔗 **Live site:** [https://anonfedora.github.io/lagos-guide/]
 
 > ⚠️ **Unofficial.** This guide is a community project. Always confirm prices, venues, and current conditions before visiting.
 
